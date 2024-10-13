@@ -1,5 +1,13 @@
 import { z } from "zod"
 
+//-------
+
+export const name = z.string().max(50)
+
+export const surname = z.string().max(50)
+
+//--------
+
 export const email = z
   .string()
   .email()
@@ -12,6 +20,8 @@ export const password = z
   .transform((str) => str.trim())
 
 export const Signup = z.object({
+  name,
+  surname,
   email,
   password,
 })
