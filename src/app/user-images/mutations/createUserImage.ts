@@ -1,14 +1,14 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { UpdateImageSchema } from "../schemas"
+import { CreateUserImageSchema } from "../schemas"
 
 export default resolver.pipe(
-  resolver.zod(UpdateImageSchema),
+  resolver.zod(CreateUserImageSchema),
   resolver.authorize(),
-  async ({ id, ...data }) => {
+  async (input) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    const image = await db.image.update({ where: { id }, data })
+    const userImage = await db.userImage.create({ data: input })
 
-    return image
+    return userImage
   }
 )

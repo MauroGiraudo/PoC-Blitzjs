@@ -8,7 +8,7 @@ import getUsers from "src/users/queries/getUsers"
 import { usePaginatedQuery } from "@blitzjs/rpc"
 export { FORM_ERROR } from "src/app/components/Form"
 
-export function ImageForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
+export function UserImageForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
   const [{ users: users }] = usePaginatedQuery(getUsers, {
     orderBy: {
       id: "asc",

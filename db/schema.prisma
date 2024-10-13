@@ -24,9 +24,9 @@ model User {
   hashedPassword String?
   role           String   @default("USER")
 
-  tokens   Token[]
-  sessions Session[]
-  images    Image[]
+  tokens    Token[]
+  sessions  Session[]
+  UserImage UserImage[]
 }
 
 model Session {
@@ -68,7 +68,7 @@ model Token {
 //   RESET_PASSWORD
 // }
 
-model Image {
+model UserImage {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
