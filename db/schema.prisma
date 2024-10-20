@@ -26,7 +26,8 @@ model User {
 
   tokens    Token[]
   sessions  Session[]
-  UserImage UserImage[]
+  //Imágenes del usuario
+  Userimage Userimage[]
 }
 
 model Session {
@@ -68,12 +69,14 @@ model Token {
 //   RESET_PASSWORD
 // }
 
-model UserImage {
+//Entidad Imagen
+
+model Userimage {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-  url       String
+  fileName  String
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
 }

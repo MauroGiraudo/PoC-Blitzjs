@@ -1,21 +1,21 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { Suspense } from "react"
-import { UserImagesList } from "./components/UserImagesList"
+import { UserimagesList } from "./components/UserimagesList"
 
 export const metadata: Metadata = {
-  title: "UserImages",
-  description: "List of userImages",
+  title: "Userimages",
+  description: "List of userimages",
 }
 
-export default function Page() {
+export default async function Page() {
   return (
     <div>
       <p>
-        <Link href={"/userImages/new"}>Create UserImage</Link>
+        <Link href={"/userimages/new"}>Create Userimage</Link>
       </p>
       <Suspense fallback={<div>Loading...</div>}>
-        <UserImagesList />
+        <UserimagesList />
       </Suspense>
     </div>
   )
