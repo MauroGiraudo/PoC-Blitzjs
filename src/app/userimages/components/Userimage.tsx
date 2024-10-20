@@ -31,7 +31,7 @@ export const Userimage = ({ userimageId }: { userimageId: number }) => {
         <div style={{ display: "flex" }}>
           <Image
             alt={"Esto es una imagen"}
-            src={`/images/${userimage.url}`}
+            src={`/images/${userimage.fileName}`}
             width={200}
             height={200}
           />

@@ -5,9 +5,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
-  /*images: {
-    formats: ["image/avif", "image/webp"],
-  },*/
+  images: {},
 }
 
 module.exports = withBlitz(nextConfig)
