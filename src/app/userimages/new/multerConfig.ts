@@ -24,8 +24,9 @@ const imageSchema = z.object({
 
 export const uploadMiddleware = upload.single("image") as RequestMiddleware
 
+/*
 // API handler para manejar la subida de la imagen
-/*export default api(async (req: Request, res: Response, ctx) => {
+export default api(async (req: Request, res: Response, ctx) => {
   if (req.method === "POST") {
     // Procesar la subida de la imagen usando el middleware de multer
     uploadMiddleware(req, res, function (err) {
@@ -60,10 +61,7 @@ export const uploadMiddleware = upload.single("image") as RequestMiddleware
   } else {
     res.status(405).json({ error: "Método no permitido" })
   }
-})*/
-
-/*
-
+})
 */
 
 // ----------------------------------
