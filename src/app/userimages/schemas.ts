@@ -4,13 +4,12 @@ export const CreateUserimageSchema = z.object({
   userId: z.number(),
   name: z.string(),
   fileName: z.string(),
-  id: z.number(),
+  image: z.instanceof(File).refine((data) => data.name === "string"),
   // template: __fieldName__: z.__zodType__(),
 })
 export const UpdateUserimageSchema = CreateUserimageSchema.merge(
   z.object({
     id: z.number(),
-    userId: z.number(),
   })
 )
 

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import deleteUserimage from "../mutations/deleteUserimage"
 import getUserimage from "../queries/getUserimage"
+import Image from "next/image.js"
 
 export const Userimage = ({ userimageId }: { userimageId: number }) => {
   const router = useRouter()
@@ -15,6 +16,13 @@ export const Userimage = ({ userimageId }: { userimageId: number }) => {
       <div>
         <h1>Project {userimage.id}</h1>
         <pre>{JSON.stringify(userimage, null, 2)}</pre>
+
+        <Image
+          src={`/images/${userimage.fileName}`}
+          alt="Esto es una imagen"
+          width={200}
+          height={200}
+        />
 
         <Link href={`/userimages/${userimage.id}/edit`}>Edit</Link>
 
