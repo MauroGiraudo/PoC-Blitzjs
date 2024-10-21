@@ -17,8 +17,9 @@ export function New__ModelName() {
         name: "",
         userId: 0,
         fileName: "doNotTouchThis.jpg",
-        usImage: "",
+        image: undefined,
       }}
+      encType="multipart/form-data"
       onSubmit={async (values) => {
         try {
           const userimage = await createUserimageMutation(values)

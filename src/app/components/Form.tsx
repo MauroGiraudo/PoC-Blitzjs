@@ -27,6 +27,7 @@ export function Form<S extends z.ZodType<any, any>>({
   schema,
   initialValues,
   onSubmit,
+  encType,
   ...props
 }: FormProps<S>) {
   const [formError, setFormError] = useState<string | null>(null)
@@ -47,7 +48,7 @@ export function Form<S extends z.ZodType<any, any>>({
       }}
     >
       {({ handleSubmit, isSubmitting }) => (
-        <form onSubmit={handleSubmit} className="form" {...props}>
+        <form onSubmit={handleSubmit} className="form" encType={encType} {...props}>
           {/* Form fields supplied as children are rendered here */}
           {children}
 

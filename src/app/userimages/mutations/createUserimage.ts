@@ -13,8 +13,9 @@ export default resolver.pipe(
   resolver.authorize(),
   async (input, ctx) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    //multerPlugin
     input.userId = ctx.session.userId
+
+    // Reemplazaar fileName por el originalname del archivo. Además, tenemos que almacenar la imagen en public/images
 
     const finalUserImage: userImage = {
       name: input.name,
