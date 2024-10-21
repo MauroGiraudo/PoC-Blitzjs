@@ -4,9 +4,9 @@ export const CreateUserimageSchema = z.object({
   userId: z.number(),
   name: z.string(),
   fileName: z.string(),
+  usimage: z.string(),
+  //usimage: z.instanceof(Blob).optional(),
 
-  image: z.instanceof(Blob).optional(),
-  //id: z.number(),
   // template: __fieldName__: z.__zodType__(),
 })
 export const UpdateUserimageSchema = CreateUserimageSchema.merge(

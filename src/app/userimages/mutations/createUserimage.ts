@@ -15,7 +15,7 @@ export default resolver.pipe(
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     input.userId = ctx.session.userId
 
-    // Reemplazaar fileName por el originalname del archivo. Además, tenemos que almacenar la imagen en public/images
+    // Reemplazaar fileName por el originalname del archivo.
 
     const finalUserImage: userImage = {
       name: input.name,
