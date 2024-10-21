@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { Suspense } from "react"
-import { New__ModelName } from "../components/NewUserImage"
+import { New__ModelName } from "../components/NewUserimage"
 
 export const metadata: Metadata = {
   title: "New Project",

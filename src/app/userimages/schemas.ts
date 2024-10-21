@@ -1,18 +1,19 @@
 import { z } from "zod"
 
-export const CreateUserImageSchema = z.object({
+export const CreateUserimageSchema = z.object({
   userId: z.number(),
   name: z.string(),
   fileName: z.string(),
   id: z.number(),
   // template: __fieldName__: z.__zodType__(),
 })
-export const UpdateUserImageSchema = CreateUserImageSchema.merge(
+export const UpdateUserimageSchema = CreateUserimageSchema.merge(
   z.object({
     id: z.number(),
+    userId: z.number(),
   })
 )
 
-export const DeleteUserImageSchema = z.object({
+export const DeleteUserimageSchema = z.object({
   id: z.number(),
 })

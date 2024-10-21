@@ -1,38 +1,38 @@
 "use client"
 import { Suspense } from "react"
-import updateUserImage from "../mutations/updateUserImage"
-import getUserImage from "../queries/getUserImage"
-import { UpdateUserImageSchema } from "../schemas"
-import { FORM_ERROR, UserImageForm } from "./UserImageForm"
+import updateUserimage from "../mutations/updateUserimage"
+import getUserimage from "../queries/getUserimage"
+import { UpdateUserimageSchema } from "../schemas"
+import { FORM_ERROR, UserimageForm } from "./UserimageForm"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import { useRouter } from "next/navigation"
 
-export const EditUserImage = ({ userImageId }: { userImageId: number }) => {
-  const [userImage, { setQueryData }] = useQuery(
-    getUserImage,
-    { id: userImageId },
+export const EditUserimage = ({ userimageId }: { userimageId: number }) => {
+  const [userimage, { setQueryData }] = useQuery(
+    getUserimage,
+    { id: userimageId },
     {
       // This ensures the query never refreshes and overwrites the form data while the user is editing.
       staleTime: Infinity,
     }
   )
-  const [updateUserImageMutation] = useMutation(updateUserImage)
+  const [updateUserimageMutation] = useMutation(updateUserimage)
   const router = useRouter()
   return (
     <>
       <div>
-        <h1>Edit UserImage {userImage.id}</h1>
-        <pre>{JSON.stringify(userImage, null, 2)}</pre>
+        <h1>Edit Userimage {userimage.id}</h1>
+        <pre>{JSON.stringify(userimage, null, 2)}</pre>
         <Suspense fallback={<div>Loading...</div>}>
-          <UserImageForm
-            submitText="Update UserImage"
-            schema={UpdateUserImageSchema}
-            initialValues={userImage}
+          <UserimageForm
+            submitText="Update Userimage"
+            schema={UpdateUserimageSchema}
+            initialValues={userimage}
             onSubmit={async (values) => {
               try {
-                const updated = await updateUserImageMutation({
+                const updated = await updateUserimageMutation({
                   ...values,
-                  id: userImage.id,
+                  id: userimage.id,
                 })
                 await setQueryData(updated)
                 router.refresh()

@@ -65,7 +65,7 @@ export default async function Home() {
                   <div className={styles.code}>
                     <span>1</span>
                     <pre>
-                      <code>blitz generate all project</code>
+                      <code>blitz generate all userimages</code>
                     </pre>
                   </div>
 
@@ -88,8 +88,8 @@ export default async function Home() {
                     <pre>
                       <code>
                         Go to {/* @ts-ignore: TODO remove after scaffolding */}
-                        <Link href="/projects" className={styles.textLink}>
-                          /projects
+                        <Link href="/userimages" className={styles.textLink}>
+                          /userimages
                         </Link>
                       </code>
                     </pre>

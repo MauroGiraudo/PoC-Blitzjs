@@ -2,17 +2,17 @@
 import { usePaginatedQuery } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import getUserImages from "../queries/getUserImages"
+import getUserimages from "../queries/getUserimages"
 import { useSearchParams } from "next/navigation"
 import { usePathname } from "next/navigation"
 import { Route } from "next"
 
 const ITEMS_PER_PAGE = 100
 
-export const UserImagesList = () => {
+export const UserimagesList = () => {
   const searchparams = useSearchParams()!
   const page = Number(searchparams.get("page")) || 0
-  const [{ userImages, hasMore }] = usePaginatedQuery(getUserImages, {
+  const [{ userimages, hasMore }] = usePaginatedQuery(getUserimages, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -34,9 +34,9 @@ export const UserImagesList = () => {
   return (
     <div>
       <ul>
-        {userImages.map((userImage) => (
-          <li key={userImage.id}>
-            <Link href={`/userImages/${userImage.id}`}>{userImage.name}</Link>
+        {userimages.map((userimage) => (
+          <li key={userimage.id}>
+            <Link href={`/userimages/${userimage.id}`}>{userimage.name}</Link>
           </li>
         ))}
       </ul>
