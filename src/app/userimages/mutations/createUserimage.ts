@@ -10,26 +10,38 @@ type userImage = {
   userId: number
 }
 
-export default resolver.pipe(resolver.authorize(), async (input: any, ctx) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  input.userId = ctx.session.userId
+export const config = {
+  api: {
+    bodyParser: false, // Deshabilitar el bodyParser por defecto de Next.js
+  },
+}
 
-  const file = input.image.get("file") as File
-  const buffer = Buffer.from(await file.arrayBuffer())
+export default resolver.pipe(
+  resolver.zod(CreateUserimageSchema),
+  resolver.authorize(),
+  async (input: any, ctx) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    input.userId = ctx.session.userId
 
-  // Generar un nombre único para el archivo
-  const fileName = `${Date.now()}-${file.name}`
-  const filePath = path.join(process.cwd(), "public", "uploads", fileName)
+    console.log(input)
+    const image = input.image as FormData
+    const file = image.get("image") as File
+    const buffer = Buffer.from(await file.arrayBuffer())
 
-  // Guardar el archivo en la carpeta "public/uploads"
-  await fs.writeFile(filePath, new Uint8Array(buffer))
+    // Generar un nombre único para el archivo
+    const fileName = `${Date.now()}-${file.name}`
+    const filePath = path.join(process.cwd(), "public", "uploads", fileName)
 
-  const userImagetoCreate: userImage = {
-    name: input.name,
-    fileName: input.image,
-    userId: input.userId,
+    // Guardar el archivo en la carpeta "public/uploads"
+    await fs.writeFile(filePath, new Uint8Array(buffer))
+
+    const userImagetoCreate: userImage = {
+      name: input.name,
+      fileName: fileName,
+      userId: input.userId,
+    }
+    const userimage = await db.userimage.create({ data: userImagetoCreate })
+
+    return userimage
   }
-  const userimage = await db.userimage.create({ data: userImagetoCreate })
-
-  return userimage
-})
+)

@@ -12,8 +12,14 @@ export function New__ModelName() {
     <UserimageForm
       submitText="Create Userimage"
       schema={CreateUserimageSchema}
+      encType="multipart/form-data"
       onSubmit={async (values) => {
         try {
+          console.log(values)
+          /*const image = values.image as FormData
+          console.log(image)
+          const file = image.get("image") as File
+          console.log(file)*/
           const userimage = await createUserimageMutation(values)
           router.push(`/userimages/${userimage.id}`)
         } catch (error: any) {
