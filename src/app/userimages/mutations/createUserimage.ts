@@ -1,14 +1,8 @@
 import { resolver } from "@blitzjs/rpc"
 import db from "db"
-import { CreateUserimageSchema } from "../schemas"
+import { CreateUserimageSchema, newCreateUserimageSchema } from "../schemas"
 import path from "node:path"
 import fs from "node:fs/promises"
-
-type userImage = {
-  name: string
-  fileName: string
-  userId: number
-}
 
 export const config = {
   api: {
@@ -17,31 +11,43 @@ export const config = {
 }
 
 export default resolver.pipe(
-  resolver.zod(CreateUserimageSchema),
+  resolver.zod(newCreateUserimageSchema),
   resolver.authorize(),
-  async (input: any, ctx) => {
+  async (input, ctx) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-    input.userId = ctx.session.userId
 
-    console.log(input)
-    const image = input.image as FormData
-    const file = image.get("image") as File
+    const file = input.file as File
+    const name = input.name as string
+    console.log(file)
+    console.log(name)
     const buffer = Buffer.from(await file.arrayBuffer())
 
-    // Generar un nombre único para el archivo
     const fileName = `${Date.now()}-${file.name}`
     const filePath = path.join(process.cwd(), "public", "uploads", fileName)
 
-    // Guardar el archivo en la carpeta "public/uploads"
     await fs.writeFile(filePath, new Uint8Array(buffer))
 
-    const userImagetoCreate: userImage = {
-      name: input.name,
+    const userImagetoCreate = {
+      name: name,
       fileName: fileName,
-      userId: input.userId,
+      userId: ctx.session.userId,
     }
     const userimage = await db.userimage.create({ data: userImagetoCreate })
 
     return userimage
   }
 )
+
+/*
+  console.log(input)
+  const image = input.image as FormData
+  const file = image.get("image") as File
+  const buffer = Buffer.from(await file.arrayBuffer())
+
+  // Generar un nombre único para el archivo
+  const fileName = `${Date.now()}-${file.name}`
+  const filePath = path.join(process.cwd(), "public", "uploads", fileName)
+
+  // Guardar el archivo en la carpeta "public/uploads"
+  await fs.writeFile(filePath, new Uint8Array(buffer))
+  */

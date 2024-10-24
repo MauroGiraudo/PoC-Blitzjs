@@ -18,7 +18,7 @@ export const Userimage = ({ userimageId }: { userimageId: number }) => {
         <pre>{JSON.stringify(userimage, null, 2)}</pre>
 
         <Image
-          src={`/images/${userimage.fileName}`}
+          src={`/uploads/${userimage.fileName}`}
           alt="Esto es una imagen"
           width={200}
           height={200}

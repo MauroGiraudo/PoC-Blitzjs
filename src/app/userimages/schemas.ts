@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { ReactHTMLElement } from "react"
 
 export const CreateUserimageSchema = z.object({
   userId: z.number(),
@@ -8,6 +9,12 @@ export const CreateUserimageSchema = z.object({
   //image: z.instanceof(FormData).refine((data) => !!data.get("image")),
   // template: __fieldName__: z.__zodType__(),
 })
+
+export const newCreateUserimageSchema = z.object({
+  name: z.string({ required_error: "El nombre de la imagen es obligatorio" }),
+  file: z.instanceof(File),
+})
+
 export const UpdateUserimageSchema = CreateUserimageSchema.merge(
   z.object({
     id: z.number(),
