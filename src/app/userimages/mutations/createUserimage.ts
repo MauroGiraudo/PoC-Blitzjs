@@ -16,6 +16,7 @@ export default resolver.pipe(
   async (input, ctx) => {
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
 
+    console.log(input)
     const file = input.file as File
     const name = input.name as string
     console.log(file)

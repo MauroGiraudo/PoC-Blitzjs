@@ -1,0 +1,14 @@
+.lblAddImage {
+  background-color: rgb(25, 94, 163);
+  color: rgb(241, 241, 242);
+  padding: 8px;
+  border-radius: 10%;
+}
+
+.newUserimagePage {
+  margin-left: 1rem;
+}
+
+.uploadImageInput {
+  display: none;
+}

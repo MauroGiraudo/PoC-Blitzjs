@@ -5,12 +5,14 @@ import { useMutation } from "@blitzjs/rpc"
 import createUserimage from "../mutations/createUserimage"
 import { useRouter } from "next/navigation"
 import { SetStateAction, useState } from "react"
+import styles from "src/app/styles/NewUserimage.module.css"
 
-export function New__ModelName() {
+export function New__Userimage() {
   const [createUserimageMutation] = useMutation(createUserimage)
   const router = useRouter()
   return (
     <form
+      method="post"
       encType="multipart/form-data"
       onSubmit={async () => {
         try {
@@ -36,7 +38,7 @@ export function New__ModelName() {
             router.push(`/userimages/${userimage.id}`)
           }
         } catch (error: any) {
-          console.error(error)
+          console.log(error.message)
         }
       }}
     >
@@ -52,6 +54,7 @@ export function New__ModelName() {
       <br />
       <br />
       <input
+        className={styles.uploadImageInput}
         name="image"
         id="image"
         type="file"
@@ -60,9 +63,14 @@ export function New__ModelName() {
           console.log(e.target.files?.[0])
         }}
       ></input>
+      <div>
+        <label className={styles.lblAddImage} htmlFor="image">
+          Elegir Imagen
+        </label>
+      </div>
       <br />
       <br />
-      <button type="submit">Subir Imagen</button>
+      <button type="submit">Publicar Imagen</button>
     </form>
   )
 }
