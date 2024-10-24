@@ -10,12 +10,6 @@ export default async function Home() {
     <>
       <div className={styles.globe} />
       <div className={styles.container}>
-        <div className={styles.toastContainer}>
-          <p>
-            <strong>Congrats!</strong> Your app is ready, including user sign-up and log-in.
-          </p>
-        </div>
-
         <main className={styles.main}>
           <div className={styles.wrapper}>
             <div className={styles.header}>
@@ -26,19 +20,25 @@ export default async function Home() {
                   <path d="M42.4727 33.2822H31.7398C27.6555 33.2822 23.8086 31.3626 21.3528 28.0991L10.7656 14.0297C10.5656 13.7638 10.5354 13.4068 10.688 13.1111L16.7908 1.28696C17.0836 0.719654 17.8684 0.652924 18.2528 1.16266L42.4727 33.2822Z"></path>
                 </svg>
               </div>
-
-              <h1>Your database & authentication is ready. Try it by signing up.</h1>
-
               {/* Auth */}
 
               <div className={styles.buttonContainer}>
                 {currentUser ? (
                   <>
-                    <LogoutButton />
                     <div>
-                      User id: <code>{currentUser.id}</code>
+                      <div>
+                        <Link href="/userimages" className={styles.button}>
+                          <strong>Ver Imágenes</strong>
+                        </Link>
+                      </div>
                       <br />
-                      User role: <code>{currentUser.role}</code>
+                      <div>
+                        User id: <code>{currentUser.id}</code>
+                        <br />
+                        User role: <code>{currentUser.role}</code>
+                      </div>
+                      <br />
+                      <LogoutButton />
                     </div>
                   </>
                 ) : (
@@ -51,98 +51,6 @@ export default async function Home() {
                     </Link>
                   </>
                 )}
-              </div>
-            </div>
-
-            <div className={styles.body}>
-              {/* Instructions */}
-              <div className={styles.instructions}>
-                <p>
-                  <strong>Add a new model by running the following in your terminal:</strong>
-                </p>
-
-                <div>
-                  <div className={styles.code}>
-                    <span>1</span>
-                    <pre>
-                      <code>blitz generate all userimages</code>
-                    </pre>
-                  </div>
-
-                  <div className={styles.code}>
-                    <span>2</span>
-                    <pre>
-                      <code>Ctrl + c</code>
-                    </pre>
-                  </div>
-
-                  <div className={styles.code}>
-                    <span>3</span>
-                    <pre>
-                      <code>blitz dev</code>
-                    </pre>
-                  </div>
-
-                  <div className={styles.code}>
-                    <span>4</span>
-                    <pre>
-                      <code>
-                        Go to {/* @ts-ignore: TODO remove after scaffolding */}
-                        <Link href="/userimages" className={styles.textLink}>
-                          /userimages
-                        </Link>
-                      </code>
-                    </pre>
-                  </div>
-                </div>
-              </div>
-              {/* Links */}
-              <div className={styles.linkGrid}>
-                <a
-                  href="https://blitzjs.com/docs/getting-started?utm_source=blitz-new&utm_medium=app-template&utm_campaign=blitz-new"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.card}
-                >
-                  Blitz Docs
-                  <span className={styles.arrowIcon} />
-                </a>
-                <a
-                  href="https://nextjs.org/docs/getting-started"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.card}
-                >
-                  Next.js Docs
-                  <span className={styles.arrowIcon} />
-                </a>
-                <a
-                  href="https://github.com/blitz-js/blitz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.card}
-                >
-                  Github Repo
-                  <span className={styles.arrowIcon} />
-                </a>
-                <a
-                  href="https://twitter.com/blitz_js"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.card}
-                >
-                  Blitz Twitter
-                  <span className={styles.arrowIcon} />
-                </a>
-                <a
-                  href="https://discord.blitzjs.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.card}
-                >
-                  Discord Community
-                  <span className={styles.arrowIcon} />
-                </a>
               </div>
             </div>
           </div>

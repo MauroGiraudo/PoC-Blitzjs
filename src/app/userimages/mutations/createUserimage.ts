@@ -17,8 +17,10 @@ export default resolver.pipe(
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
 
     console.log(input)
-    const file = input.file as File
-    const name = input.name as string
+    const file = input.file
+    const name = input.name
+    const imageHeight = input.imageHeight
+    const imageWidth = input.imageWidth
     console.log(file)
     console.log(name)
     const buffer = Buffer.from(await file.arrayBuffer())

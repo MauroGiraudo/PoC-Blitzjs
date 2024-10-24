@@ -2,7 +2,8 @@
   background-color: rgb(25, 94, 163);
   color: rgb(241, 241, 242);
   padding: 8px;
-  border-radius: 10%;
+  border-radius: 0.6rem;
+  cursor: pointer;
 }
 
 .newUserimagePage {
@@ -11,4 +12,41 @@
 
 .uploadImageInput {
   display: none;
+}
+
+.imageListContainer {
+  gap: 0.3rem;
+  margin-left: 1.3rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.imageListButton {
+  margin-left: 1.2rem;
+  background-color: rgb(61, 63, 66);
+  color: rgb(216, 219, 222);
+  border-radius: 1rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.txbName {
+  margin: 0.8rem 0;
+  font-size: 15px;
+}
+
+.imageContainer {
+  align-items: center;
+}
+
+.imageComponent {
+  width: 100%;
+  height: 100%;
 }

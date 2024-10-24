@@ -13,6 +13,8 @@ export const CreateUserimageSchema = z.object({
 export const newCreateUserimageSchema = z.object({
   name: z.string({ required_error: "El nombre de la imagen es obligatorio" }),
   file: z.instanceof(File),
+  imageHeight: z.number(),
+  imageWidth: z.number(),
 })
 
 export const UpdateUserimageSchema = CreateUserimageSchema.merge(

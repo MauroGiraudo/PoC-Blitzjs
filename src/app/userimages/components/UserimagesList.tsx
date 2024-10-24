@@ -6,8 +6,10 @@ import getUserimages from "../queries/getUserimages"
 import { useSearchParams } from "next/navigation"
 import { usePathname } from "next/navigation"
 import { Route } from "next"
+import styles from "./../../styles/NewUserimage.module.css"
+import Image from "next/image"
 
-const ITEMS_PER_PAGE = 100
+const ITEMS_PER_PAGE = 5
 
 export const UserimagesList = () => {
   const searchparams = useSearchParams()!
@@ -36,15 +38,23 @@ export const UserimagesList = () => {
       <ul>
         {userimages.map((userimage) => (
           <li key={userimage.id}>
-            <Link href={`/userimages/${userimage.id}`}>{userimage.name}</Link>
+            <Link href={`/userimages/${userimage.id}`} className={styles.image}>
+              {userimage.name}
+              <Image
+                src={`/uploads/${userimage.fileName}`}
+                alt={"Esto es una imagen"}
+                height={200}
+                width={200}
+              ></Image>
+            </Link>
           </li>
         ))}
       </ul>
 
-      <button disabled={page === 0} onClick={goToPreviousPage}>
+      <button className={styles.imageListButton} disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>
-      <button disabled={!hasMore} onClick={goToNextPage}>
+      <button className={styles.imageListButton} disabled={!hasMore} onClick={goToNextPage}>
         Next
       </button>
     </div>
