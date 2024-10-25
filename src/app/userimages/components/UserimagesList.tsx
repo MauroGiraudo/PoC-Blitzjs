@@ -35,22 +35,28 @@ export const UserimagesList = () => {
 
   return (
     <div>
-      <ul>
+      <ul className={styles.imageList}>
         {userimages.map((userimage) => (
-          <li key={userimage.id}>
-            <Link href={`/userimages/${userimage.id}`} className={styles.image}>
-              {userimage.name}
-              <Image
-                src={`/uploads/${userimage.fileName}`}
-                alt={"Esto es una imagen"}
-                height={200}
-                width={200}
-              ></Image>
-            </Link>
+          <li key={userimage.id} className={styles.imageListItem}>
+            <div>
+              <Link href={`/userimages/${userimage.id}`}>
+                <label className={styles.imageName}>{userimage.name}</label>
+              </Link>
+              <br />
+              <br />
+              <Link href={`/userimages/${userimage.id}`}>
+                <Image
+                  src={`/uploads/${userimage.fileName}`}
+                  alt={"Esto es una imagen"}
+                  height={200}
+                  width={200}
+                ></Image>
+              </Link>
+            </div>
           </li>
         ))}
       </ul>
-
+      <br />
       <button className={styles.imageListButton} disabled={page === 0} onClick={goToPreviousPage}>
         Previous
       </button>

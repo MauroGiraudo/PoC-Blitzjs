@@ -14,27 +14,14 @@
   display: none;
 }
 
-.imageListContainer {
-  gap: 0.3rem;
-  margin-left: 1.3rem;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
 .imageListButton {
-  margin-left: 1.2rem;
+  margin: 1rem;
+  width: 5rem;
   background-color: rgb(61, 63, 66);
   color: rgb(216, 219, 222);
   border-radius: 1rem;
   cursor: pointer;
   font-size: 0.85rem;
-}
-
-.image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .txbName {
@@ -43,10 +30,47 @@
 }
 
 .imageContainer {
-  align-items: center;
+  display: flex;
 }
 
 .imageComponent {
   width: 100%;
   height: 100%;
+}
+
+.imageList {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.imageListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageImageListContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(123, 130, 140);
+  min-height: 100vh;
+
+  .imageListContainer {
+    background-color: white;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+
+    .imageName {
+      justify-content: end;
+      position: relative;
+    }
+  }
 }
