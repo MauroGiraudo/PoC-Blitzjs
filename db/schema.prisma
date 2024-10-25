@@ -74,6 +74,8 @@ model Userimage {
   updatedAt DateTime @updatedAt
   name      String
   fileName  String
+  height    Int
+  width     Int
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
 }

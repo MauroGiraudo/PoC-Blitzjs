@@ -14,7 +14,7 @@ const ITEMS_PER_PAGE = 5
 export const UserimagesList = () => {
   const searchparams = useSearchParams()!
   const page = Number(searchparams.get("page")) || 0
-  const [{ userimages, hasMore }] = usePaginatedQuery(getUserimages, {
+  const [{ userimages, hasMore, count }] = usePaginatedQuery(getUserimages, {
     orderBy: { id: "asc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
@@ -48,8 +48,9 @@ export const UserimagesList = () => {
                 <Image
                   src={`/uploads/${userimage.fileName}`}
                   alt={"Esto es una imagen"}
-                  height={200}
-                  width={200}
+                  height={userimage.height}
+                  width={userimage.width}
+                  priority={true}
                 ></Image>
               </Link>
             </div>
@@ -57,10 +58,20 @@ export const UserimagesList = () => {
         ))}
       </ul>
       <br />
-      <button className={styles.imageListButton} disabled={page === 0} onClick={goToPreviousPage}>
+      <button
+        className={styles.imageListButton}
+        disabled={page === 0}
+        onClick={goToPreviousPage}
+        hidden={count === 0}
+      >
         Previous
       </button>
-      <button className={styles.imageListButton} disabled={!hasMore} onClick={goToNextPage}>
+      <button
+        className={styles.imageListButton}
+        disabled={!hasMore}
+        onClick={goToNextPage}
+        hidden={count === 0}
+      >
         Next
       </button>
     </div>

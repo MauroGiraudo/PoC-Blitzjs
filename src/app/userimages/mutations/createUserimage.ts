@@ -18,24 +18,25 @@ export default resolver.pipe(
 
     console.log(input)
     const file = input.file
+    console.log(file)
     const name = input.name
     const imageHeight = input.imageHeight
     const imageWidth = input.imageWidth
-    console.log(file)
-    console.log(name)
-    const buffer = Buffer.from(await file.arrayBuffer())
 
+    //Guardamos la imagen en la carpeta "public/uploads"
+    const buffer = Buffer.from(await file.arrayBuffer())
     const fileName = `${Date.now()}-${file.name}`
     const filePath = path.join(process.cwd(), "public", "uploads", fileName)
-
     await fs.writeFile(filePath, new Uint8Array(buffer))
 
-    const userImagetoCreate = {
+    const userImageToCreate = {
       name: name,
       fileName: fileName,
       userId: ctx.session.userId,
+      height: imageHeight,
+      width: imageWidth,
     }
-    const userimage = await db.userimage.create({ data: userImagetoCreate })
+    const userimage = await db.userimage.create({ data: userImageToCreate })
 
     return userimage
   }

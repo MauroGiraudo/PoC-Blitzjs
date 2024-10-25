@@ -1,5 +1,4 @@
 "use client"
-import { FORM_ERROR, UserimageForm } from "./UserimageForm"
 import { CreateUserimageSchema } from "../schemas"
 import { useMutation } from "@blitzjs/rpc"
 import createUserimage from "../mutations/createUserimage"
@@ -7,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { ChangeEvent, SetStateAction, useState } from "react"
 import styles from "src/app/styles/NewUserimage.module.css"
 import Image from "next/image"
+import homeStyles from "src/app/styles/Home.module.css"
 
 const NORMALIZE_SIZE = 200
 
@@ -33,18 +33,16 @@ export function New__Userimage() {
         img.onload = () => {
           if ((img.width + img.height) / 2 > NORMALIZE_SIZE) {
             const relation = img.width / img.height
-            if (relation > 1) {
+            if (relation !== 1) {
               img.width = NORMALIZE_SIZE * relation
               img.height = NORMALIZE_SIZE
-            } else if (relation < 1) {
-              img.height = NORMALIZE_SIZE * relation
-              img.width = NORMALIZE_SIZE
             } else {
               img.height = NORMALIZE_SIZE
               img.width = NORMALIZE_SIZE
             }
           }
           setImageDimensions({ width: img.width, height: img.height })
+          console.log(img.width, img.height)
         }
         img.src = e.target?.result as string
         setImageSrc(e.target?.result as string)
@@ -57,12 +55,12 @@ export function New__Userimage() {
   const handleImageSubmit = async () => {
     try {
       const file = image
-      console.log(file)
       if (!file) {
         throw Error("No se ha seleccionado un archivo")
       }
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
+
       const values = {
         name: name,
         file: file,
@@ -85,48 +83,57 @@ export function New__Userimage() {
   }
 
   return (
-    <form method="post" encType="multipart/form-data" onSubmit={handleImageSubmit}>
-      <label>
-        <strong>{`Image's Name`}</strong>
-      </label>
-      <br />
-      <input
-        className={styles.txbName}
-        name="name"
-        id="name"
-        type="text"
-        placeholder="name"
-      ></input>{" "}
-      <br />
-      <br />
-      <input
-        className={styles.uploadImageInput}
-        name="image"
-        id="image"
-        type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-      ></input>
-      <div className={styles.imageContainer}>
-        <label className={styles.lblAddImage} htmlFor="image">
-          Elegir Imagen
+    <div className={styles.imageList}>
+      <form
+        method="post"
+        encType="multipart/form-data"
+        onSubmit={handleImageSubmit}
+        className={styles.imageListItem}
+      >
+        <label>
+          <strong>{`Image's Name`}</strong>
         </label>
-      </div>
-      <br />
-      <div className={styles.imageContainer}>
-        <Image
-          src={`${imageSrc}`}
-          alt="Esto es una imagen"
-          height={imageDimensions?.height || 200}
-          width={imageDimensions?.width || 250}
-          id="img"
-          hidden={!isSelected}
-        ></Image>
-      </div>
-      <br />
-      <br />
-      <button type="submit">Publicar Imagen</button>
-    </form>
+        <br />
+        <input
+          className={styles.txbName}
+          name="name"
+          id="name"
+          type="text"
+          placeholder="name"
+        ></input>{" "}
+        <br />
+        <br />
+        <input
+          className={styles.uploadImageInput}
+          name="image"
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        ></input>
+        <div className={styles.imageContainer}>
+          <label className={styles.lblAddImage} htmlFor="image">
+            Elegir Imagen
+          </label>
+        </div>
+        <br />
+        <div className={styles.imageContainer}>
+          <Image
+            src={`${imageSrc}`}
+            alt="Esto es una imagen"
+            height={imageDimensions?.height || 200}
+            width={imageDimensions?.width || 250}
+            id="img"
+            hidden={!isSelected}
+          ></Image>
+        </div>
+        <br />
+        <br />
+        <button type="submit" className={homeStyles.button}>
+          <strong>Publicar Imagen</strong>
+        </button>
+      </form>
+    </div>
   )
 }
 

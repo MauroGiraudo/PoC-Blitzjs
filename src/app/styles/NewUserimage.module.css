@@ -45,12 +45,12 @@
   gap: 1rem;
   margin: 0;
   padding: 0;
-}
 
-.imageListItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  .imageListItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .pageImageListContainer {
@@ -58,7 +58,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(123, 130, 140);
+  background-color: rgb(17, 32, 52);
   min-height: 100vh;
 
   .imageListContainer {
@@ -67,6 +67,8 @@
     display: flex;
     text-align: center;
     flex-direction: column;
+    border-radius: 1rem;
+    padding: 1rem;
 
     .imageName {
       justify-content: end;
