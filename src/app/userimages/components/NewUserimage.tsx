@@ -58,12 +58,15 @@ export function New__Userimage() {
       if (!file) {
         throw Error("No se ha seleccionado un archivo")
       }
+      const formData = new FormData()
+      formData.append("image", file, file.name)
+
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
 
       const values = {
         name: name,
-        file: file,
+        file: formData,
         imageHeight: imageDimensions?.height || 200,
         imageWidth: imageDimensions?.width || 250,
       }
