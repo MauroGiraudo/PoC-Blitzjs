@@ -7,6 +7,7 @@ import { ChangeEvent, SetStateAction, useState } from "react"
 import styles from "src/app/styles/NewUserimage.module.css"
 import Image from "next/image"
 import homeStyles from "src/app/styles/Home.module.css"
+import { getAntiCSRFToken } from "@blitzjs/auth"
 
 const NORMALIZE_SIZE = 200
 
@@ -64,13 +65,26 @@ export function New__Userimage() {
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
 
+      const fileName = Date.now() + "-" + file.name
+      formData.append("fileName", fileName)
+
+      const antiCSRFToken = getAntiCSRFToken()
+      const response = await fetch("/api/uploads", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Anti-Csrf": antiCSRFToken,
+        },
+      })
+      const result = await response.json()
+      console.log(result)
+
       const values = {
         name: name,
-        file: formData,
+        fileName: fileName,
         imageHeight: imageDimensions?.height || 200,
         imageWidth: imageDimensions?.width || 250,
       }
-      console.log(values)
       const userimage = await createUserimageMutation(values)
       console.log(userimage)
       if (!userimage) {

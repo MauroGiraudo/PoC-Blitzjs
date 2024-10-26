@@ -12,7 +12,7 @@ export const CreateUserimageSchema = z.object({
 
 export const newCreateUserimageSchema = z.object({
   name: z.string({ required_error: "El nombre de la imagen es obligatorio" }),
-  file: z.instanceof(FormData),
+  fileName: z.string(),
   imageHeight: z.number(),
   imageWidth: z.number(),
 })
