@@ -15,8 +15,15 @@ declare module "@blitzjs/auth" {
 }
 
 declare module "next" {
-  interface NextApiRequest {
+  export interface NextApiRequest {
     file?: Express.Multer.File
     files?: formidable.Files<string>
+  }
+}
+
+declare module "blitz" {
+  export interface Ctx {
+    file?: Express.Multer.File
+    (error?: Error | undefined): void | Promise<void>
   }
 }

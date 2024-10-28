@@ -3,11 +3,13 @@ import multer from "multer"
 import path from "path"
 import fs from "fs/promises"
 import db from "db"
-import { connectMiddleware } from "blitz"
+import { connectMiddleware, MiddlewareNext, MiddlewareResponse, RequestMiddleware } from "blitz"
 import { api } from "@/src/app/blitz-server"
 import { getSession } from "@blitzjs/auth"
 import formidable from "formidable"
 import cookie from "cookie"
+import { BlitzAPIHandler, BlitzNextApiResponse, Ctx } from "@blitzjs/next"
+import { Middleware } from "next/dist/lib/load-custom-routes.js"
 
 // Configuración de almacenamiento de multer
 const storage = multer.diskStorage({
@@ -15,7 +17,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(process.cwd(), "public", "uploads"))
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.fileName)
+    cb(null, req.body.fileName as string)
   },
 })
 
@@ -23,6 +25,7 @@ const upload = multer({ storage })
 
 // Middleware para manejar la subida de archivos con multer
 const uploadMiddleware = upload.single("image")
+const uploadImage = connectMiddleware(uploadMiddleware as RequestMiddleware)
 
 // Middleware personalizado para procesar los campos del formulario
 const processFormData = (req: NextApiRequest, res: NextApiResponse, next: Function) => {
@@ -38,36 +41,15 @@ const processFormData = (req: NextApiRequest, res: NextApiResponse, next: Functi
   })
 }
 
-const runMiddleware = (req: NextApiRequest, res: NextApiResponse, fn: Function) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-      return resolve(result)
-    })
-  })
-}
-
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: BlitzNextApiResponse, ctx: Ctx) => {
   if (req.method === "POST") {
     try {
-      // Parsear las cookies del usuario
-      const cookies = cookie.parse(req.headers.cookie || "")
-      const csrfTokenFromCookie = cookies["__Host-blitz-csrfToken"]
-      const csrfTokenFromHeader = req.headers["anti-csrf"]
-
-      // Verificar el token CSRF
-      if (csrfTokenFromHeader !== csrfTokenFromCookie) {
-        return res.status(401).json({ name: "CSRFTokenMismatchError", statusCode: 401 })
-      }
-
-      // Procesar los campos del formulario antes de manejar la subida de la imagen
-      await runMiddleware(req, res, processFormData)
+      /*// Procesar los campos del formulario antes de manejar la subida de la imagen
+      await runMiddleware(req, res, processFormData)*/
 
       // Procesar la subida de la imagen usando el middleware de multer
-      await runMiddleware(req, res, uploadMiddleware)
-
+      //await runMiddleware(req, res, connectMiddleware(uploadMiddleware as RequestMiddleware))
+      uploadImage(req, res, ctx as MiddlewareNext)
       const file = req.file
       console.log(file)
       if (!file) {
@@ -76,7 +58,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       res.status(200).json({ message: "Imagen guardada exitosamente" })
     } catch (error: any) {
-      res.status(500).json({ error: error.message })
+      res.status(500).json({ error: `Error: ${error.message}` })
     }
   } else {
     res.setHeader("Allow", ["POST"])

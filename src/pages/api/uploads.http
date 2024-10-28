@@ -1,0 +1,14 @@
+POST http://localhost:3000/api/uploads
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+anti-csrf: KAs0fkZC9RRsdBpaCGFOy1cmc_mpcz_3
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="fileName"
+
+28-10-2024-Carita Fachera.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="Carita Fachera.png"
+Content-Type: image/png
+
+< D:\Mauro\Colegio_Facultad\UTN\3ero\Desarrollo_de_Software\images\Carita Fachera.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

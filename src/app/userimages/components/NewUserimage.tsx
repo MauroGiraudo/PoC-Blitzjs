@@ -22,6 +22,7 @@ export function New__Userimage() {
   )
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     console.log(e.target.files?.[0])
     if (!e.target.files || e.target.files.length === 0) {
       setIsSelected(false)
@@ -65,19 +66,31 @@ export function New__Userimage() {
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
 
-      const fileName = Date.now() + "-" + file.name
+      const fecha = new Date()
+      const fileName =
+        fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + "-" + file.name
+      console.log(fileName)
       formData.append("fileName", fileName)
 
       const antiCSRFToken = getAntiCSRFToken()
-      const response = await fetch("/api/uploads", {
+      /*const response = await fetch("/api/uploads", {
         method: "POST",
         body: formData,
         headers: {
           "Anti-Csrf": antiCSRFToken,
         },
-      })
-      const result = await response.json()
-      console.log(result)
+      })*/
+      if (antiCSRFToken) {
+        const response = new Request("/api/uploads", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "anti-csrf": antiCSRFToken,
+          },
+        })
+        const result = response.json()
+        console.log(result)
+      }
 
       const values = {
         name: name,
