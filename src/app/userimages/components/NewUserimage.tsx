@@ -61,7 +61,7 @@ export function New__Userimage() {
         throw Error("No se ha seleccionado un archivo")
       }
       const formData = new FormData()
-      formData.append("image", file, file.name)
+      formData.set("image", file, file.name)
 
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
@@ -69,17 +69,18 @@ export function New__Userimage() {
       const fecha = new Date()
       const fileName =
         fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + "-" + file.name
-      console.log(fileName)
-      formData.append("fileName", fileName)
 
+      /*
       const antiCSRFToken = getAntiCSRFToken()
-      /*const response = await fetch("/api/uploads", {
+      const response = await fetch("/api/uploads", {
         method: "POST",
         body: formData,
         headers: {
           "Anti-Csrf": antiCSRFToken,
         },
       })*/
+
+      const antiCSRFToken = getAntiCSRFToken()
       if (antiCSRFToken) {
         const response = new Request("/api/uploads", {
           method: "POST",
@@ -88,18 +89,18 @@ export function New__Userimage() {
             "anti-csrf": antiCSRFToken,
           },
         })
-        const result = response.json()
+        const result = await response.json()
         console.log(result)
       }
 
       const values = {
         name: name,
         fileName: fileName,
+        image: formData,
         imageHeight: imageDimensions?.height || 200,
         imageWidth: imageDimensions?.width || 250,
       }
       const userimage = await createUserimageMutation(values)
-      console.log(userimage)
       if (!userimage) {
         alert("No se pudo crear la imagen")
         throw Error("No se pudo crear la imagen")
