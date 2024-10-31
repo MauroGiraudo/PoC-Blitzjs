@@ -9,7 +9,7 @@ import { Route } from "next"
 import styles from "./../../styles/NewUserimage.module.css"
 import Image from "next/image"
 
-const ITEMS_PER_PAGE = 5
+const ITEMS_PER_PAGE = 3
 
 export const UserimagesList = () => {
   const searchparams = useSearchParams()!
