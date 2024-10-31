@@ -12,3 +12,9 @@ declare module "@blitzjs/auth" {
     }
   }
 }
+
+declare module "blitz" {
+  export interface Ctx {
+    file?: File
+  }
+}

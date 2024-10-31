@@ -7,6 +7,7 @@ import { ChangeEvent, SetStateAction, useState } from "react"
 import styles from "src/app/styles/NewUserimage.module.css"
 import Image from "next/image"
 import homeStyles from "src/app/styles/Home.module.css"
+import { getBlitzContext } from "../../blitz-server.js"
 
 const NORMALIZE_SIZE = 200
 
