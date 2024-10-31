@@ -21,7 +21,7 @@ export const EditUserimage = ({ userimageId }: { userimageId: number }) => {
   return (
     <>
       <div>
-        <h1>Edit Userimage {userimage.id}</h1>
+        <h1>Edit Image {userimage.name}</h1>
         <pre>{JSON.stringify(userimage, null, 2)}</pre>
         <Suspense fallback={<div>Loading...</div>}>
           <UserimageForm

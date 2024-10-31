@@ -35,6 +35,7 @@ export const LoginForm = (props: LoginFormProps) => {
               router.push(next as Route)
             } else {
               router.push("/")
+              router.refresh()
             }
           } catch (error: any) {
             if (error instanceof AuthenticationError) {

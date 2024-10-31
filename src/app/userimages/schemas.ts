@@ -17,11 +17,15 @@ export const newCreateUserimageSchema = z.object({
   imageWidth: z.number(),
 })
 
-export const UpdateUserimageSchema = CreateUserimageSchema.merge(
-  z.object({
-    id: z.number(),
-  })
-)
+export const UpdateUserimageSchema = z.object({
+  id: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  name: z.string({ required_error: "El nombre de la imagen es obligatorio" }),
+  fileName: z.string(),
+  height: z.number(),
+  width: z.number(),
+})
 
 export const DeleteUserimageSchema = z.object({
   id: z.number(),

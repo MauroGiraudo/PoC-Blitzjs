@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import deleteUserimage from "../mutations/deleteUserimage"
 import getUserimage from "../queries/getUserimage"
 import Image from "next/image.js"
+import styles from "src/app/styles/Home.module.css"
 
 export const Userimage = ({ userimageId }: { userimageId: number }) => {
   const router = useRouter()
@@ -14,19 +15,24 @@ export const Userimage = ({ userimageId }: { userimageId: number }) => {
   return (
     <>
       <div>
-        <h1>Project {userimage.id}</h1>
+        <h1>{userimage.name}</h1>
         <pre>{JSON.stringify(userimage, null, 2)}</pre>
 
         <Image
           src={`/uploads/${userimage.fileName}`}
           alt="Esto es una imagen"
-          width={200}
-          height={200}
+          width={userimage.width}
+          height={userimage.height}
         />
 
-        <Link href={`/userimages/${userimage.id}/edit`}>Edit</Link>
+        <br />
+
+        <Link className={styles.button} href={`/userimages/${userimage.id}/edit`}>
+          Edit
+        </Link>
 
         <button
+          className={styles.button}
           type="button"
           onClick={async () => {
             if (window.confirm("This will be deleted")) {
