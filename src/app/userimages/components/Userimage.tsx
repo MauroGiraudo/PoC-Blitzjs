@@ -6,11 +6,13 @@ import deleteUserimage from "../mutations/deleteUserimage"
 import getUserimage from "../queries/getUserimage"
 import Image from "next/image.js"
 import styles from "src/app/styles/Home.module.css"
+import { useSession } from "@blitzjs/auth"
 
 export const Userimage = ({ userimageId }: { userimageId: number }) => {
   const router = useRouter()
   const [deleteUserimageMutation] = useMutation(deleteUserimage)
   const [userimage] = useQuery(getUserimage, { id: userimageId })
+  const session = useSession()
 
   return (
     <>
@@ -27,23 +29,25 @@ export const Userimage = ({ userimageId }: { userimageId: number }) => {
 
         <br />
 
-        <Link className={styles.button} href={`/userimages/${userimage.id}/edit`}>
-          Edit
-        </Link>
+        <div hidden={session.userId !== userimage.userId}>
+          <Link className={styles.button} href={`/userimages/${userimage.id}/edit`}>
+            Edit
+          </Link>
 
-        <button
-          className={styles.button}
-          type="button"
-          onClick={async () => {
-            if (window.confirm("This will be deleted")) {
-              await deleteUserimageMutation({ id: userimage.id })
-              router.push("/userimages")
-            }
-          }}
-          style={{ marginLeft: "0.5rem" }}
-        >
-          Delete
-        </button>
+          <button
+            className={styles.button}
+            type="button"
+            onClick={async () => {
+              if (window.confirm("This will be deleted")) {
+                await deleteUserimageMutation({ id: userimage.id })
+                router.push("/userimages")
+              }
+            }}
+            style={{ marginLeft: "0.5rem" }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </>
   )
