@@ -17,17 +17,20 @@ export default resolver.pipe(
     // TODO: in multi-tenant app, you must add validation to ensure correct tenant
 
     console.log(input)
-    const file = input.file
-    console.log(file)
+    const fileName = input.fileName
     const name = input.name
     const imageHeight = input.imageHeight
     const imageWidth = input.imageWidth
 
+    //Obtenemos el archivo de la petición guardado en el ctx
+    const file = ctx.file as File
+
     //Guardamos la imagen en la carpeta "public/uploads"
     const buffer = Buffer.from(await file.arrayBuffer())
-    const fileName = `${Date.now()}-${file.name}`
     const filePath = path.join(process.cwd(), "public", "uploads", fileName)
     await fs.writeFile(filePath, new Uint8Array(buffer))
+
+    ctx.file = undefined
 
     const userImageToCreate = {
       name: name,

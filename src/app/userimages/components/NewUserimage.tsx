@@ -7,7 +7,7 @@ import { ChangeEvent, SetStateAction, useState } from "react"
 import styles from "src/app/styles/NewUserimage.module.css"
 import Image from "next/image"
 import homeStyles from "src/app/styles/Home.module.css"
-import { getBlitzContext } from "../../blitz-server.js"
+import { getBlitzContext } from "src/app/blitz-server"
 
 const NORMALIZE_SIZE = 200
 
@@ -62,9 +62,16 @@ export function New__Userimage() {
       const nameInput = document.getElementById("name") as HTMLInputElement
       const name = nameInput.value
 
+      const fecha = new Date()
+      const fileName =
+        fecha.getDate() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getFullYear() + "-" + file.name
+
+      const ctx = await getBlitzContext()
+      ctx.file = file
+
       const values = {
         name: name,
-        file: file,
+        fileName: fileName,
         imageHeight: imageDimensions?.height || 200,
         imageWidth: imageDimensions?.width || 250,
       }
